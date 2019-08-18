@@ -1,0 +1,356 @@
+<div class="centered-content">
+    <div class="top-bar">
+        <div class="search-bar control">
+            <input class="input is-medium has-background-light" type="text" placeholder="Search">
+        </div>
+        <div class="new-note-button">
+            <button routerLink="../new-note" class="button">
+                <span class="icon is-large">
+                    <i class="fas fa-sticky-note"></i>
+                </span>
+            </button>
+        </div>
+        <div class="new-task-list-button">
+            <button routerLink="../new-list" class="button">
+                <span class="icon is-large">
+                    <i class="fa fa-list"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <div class="columns is-multiline is-mobile">
+        <div class="column is-one-quarter-widescreen is-one-quarter-desktop is-one-third-tablet is-half-mobile">
+            <div *ngFor="let item of items">
+                <div class="card" *ngIf="item.column==1" [style.background-color]="item.color">
+                    <div *ngIf="item.text !== undefined" class="card-content" [routerLink]="['/edit-note',item.id]">
+                        <b>{{ item.title }}</b> <br>
+                        {{ item.text }}
+                    </div>
+                    <div *ngIf="item.text === undefined" class="card-content" [routerLink]="['/edit-list',item.id]">
+                        <b>{{ item.title }}</b> <br>
+                        <li *ngFor="let task of item.tasks">
+                            {{ task.text }}
+                        </li>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="dropdown is-hoverable is-up is-left">
+                            <div class="dropdown-trigger">
+                                <button class="button color-picker-button" [style.background-color]="item.color"
+                                    aria-haspopup="true">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-paint-brush" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                                <div class="dropdown-content color-picker-container">
+                                    <div class="color-button-group">
+                                        <button #color1 class="button color-button is-rounded"
+                                            style="background-color: #ffffff;"
+                                            (click)="setColorString(item.id, item.item_type, color1.style.backgroundColor)"></button>
+                                        <button #color2 class="button color-button is-rounded"
+                                            style="background-color: #F58A82;"
+                                            (click)="setColorString(item.id, item.item_type, color2.style.backgroundColor)"></button>
+                                        <button #color3 class="button color-button is-rounded"
+                                            style="background-color: #E7BF4C;"
+                                            (click)="setColorString(item.id, item.item_type, color3.style.backgroundColor)"></button>
+                                        <button #color4 class="button color-button is-rounded"
+                                            style="background-color: #FFF475;"
+                                            (click)="setColorString(item.id, item.item_type, color4.style.backgroundColor)"></button>
+                                    </div>
+                                    <div class="color-button-group">
+                                        <button #color5 class="button color-button is-rounded"
+                                            style="background-color: #CEFF8B;"
+                                            (click)="setColorString(item.id, item.item_type, color5.style.backgroundColor)"></button>
+                                        <button #color6 class="button color-button is-rounded"
+                                            style="background-color: #A3FFE9;"
+                                            (click)="setColorString(item.id, item.item_type, color6.style.backgroundColor)"></button>
+                                        <button #color7 class="button color-button is-rounded"
+                                            style="background-color: #C9F2F6;"
+                                            (click)="setColorString(item.id, item.item_type, color7.style.backgroundColor)"></button>
+                                        <button #color8 class="button color-button is-rounded"
+                                            style="background-color: #AFCBFA;"
+                                            (click)="setColorString(item.id, item.item_type, color8.style.backgroundColor)"></button>
+                                    </div>
+                                    <div class="color-button-group">
+                                        <button #color9 class="button color-button is-rounded"
+                                            style="background-color: #D5AFF8;"
+                                            (click)="setColorString(item.id, item.item_type, color9.style.backgroundColor)"></button>
+                                        <button #color10 class="button color-button is-rounded"
+                                            style="background-color: #FFCEE7;"
+                                            (click)="setColorString(item.id, item.item_type, color10.style.backgroundColor)"></button>
+                                        <button #color11 class="button color-button is-rounded"
+                                            style="background-color: #EAC8A5;"
+                                            (click)="setColorString(item.id, item.item_type, color11.style.backgroundColor)"></button>
+                                        <button #color12 class="button color-button is-rounded"
+                                            style="background-color: #EAE9EE;"
+                                            (click)="setColorString(item.id, item.item_type, color12.style.backgroundColor)"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button (click)="deleteItem(item)" class="button delete-item-button" aria-haspopup="true"
+                                [style.background-color]="item.color">
+                                <span class="icon is-small">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-one-quarter-widescreen is-one-quarter-desktop is-one-third-tablet is-half-mobile">
+            <div *ngFor="let item of items">
+                <div class="card" *ngIf="item.column==2" [style.background-color]="item.color">
+                    <div *ngIf="item.text !== undefined" class="card-content" [routerLink]="['/edit-note',item.id]">
+                        <b>{{ item.title }}</b> <br>
+                        {{ item.text }}
+                    </div>
+                    <div *ngIf="item.text === undefined" class="card-content" [routerLink]="['/edit-list',item.id]">
+                        <b>{{ item.title }}</b> <br>
+                        <li *ngFor="let task of item.tasks">
+                            {{ task.text }}
+                        </li>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="dropdown is-hoverable is-up is-left">
+                            <div class="dropdown-trigger">
+                                <button class="button color-picker-button" [style.background-color]="item.color"
+                                    aria-haspopup="true">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-paint-brush" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                                <div class="dropdown-content color-picker-container">
+                                    <div class="color-button-group">
+                                        <button #color1 class="button color-button is-rounded"
+                                            style="background-color: #ffffff;"
+                                            (click)="setColorString(item.id, item.item_type, color1.style.backgroundColor)"></button>
+                                        <button #color2 class="button color-button is-rounded"
+                                            style="background-color: #F58A82;"
+                                            (click)="setColorString(item.id, item.item_type, color2.style.backgroundColor)"></button>
+                                        <button #color3 class="button color-button is-rounded"
+                                            style="background-color: #E7BF4C;"
+                                            (click)="setColorString(item.id, item.item_type, color3.style.backgroundColor)"></button>
+                                        <button #color4 class="button color-button is-rounded"
+                                            style="background-color: #FFF475;"
+                                            (click)="setColorString(item.id, item.item_type, color4.style.backgroundColor)"></button>
+                                    </div>
+                                    <div class="color-button-group">
+                                        <button #color5 class="button color-button is-rounded"
+                                            style="background-color: #CEFF8B;"
+                                            (click)="setColorString(item.id, item.item_type, color5.style.backgroundColor)"></button>
+                                        <button #color6 class="button color-button is-rounded"
+                                            style="background-color: #A3FFE9;"
+                                            (click)="setColorString(item.id, item.item_type, color6.style.backgroundColor)"></button>
+                                        <button #color7 class="button color-button is-rounded"
+                                            style="background-color: #C9F2F6;"
+                                            (click)="setColorString(item.id, item.item_type, color7.style.backgroundColor)"></button>
+                                        <button #color8 class="button color-button is-rounded"
+                                            style="background-color: #AFCBFA;"
+                                            (click)="setColorString(item.id, item.item_type, color8.style.backgroundColor)"></button>
+                                    </div>
+                                    <div class="color-button-group">
+                                        <button #color9 class="button color-button is-rounded"
+                                            style="background-color: #D5AFF8;"
+                                            (click)="setColorString(item.id, item.item_type, color9.style.backgroundColor)"></button>
+                                        <button #color10 class="button color-button is-rounded"
+                                            style="background-color: #FFCEE7;"
+                                            (click)="setColorString(item.id, item.item_type, color10.style.backgroundColor)"></button>
+                                        <button #color11 class="button color-button is-rounded"
+                                            style="background-color: #EAC8A5;"
+                                            (click)="setColorString(item.id, item.item_type, color11.style.backgroundColor)"></button>
+                                        <button #color12 class="button color-button is-rounded"
+                                            style="background-color: #EAE9EE;"
+                                            (click)="setColorString(item.id, item.item_type, color12.style.backgroundColor)"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button (click)="deleteItem(item)" class="button delete-item-button" aria-haspopup="true"
+                                [style.background-color]="item.color">
+                                <span class="icon is-small">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-one-quarter-widescreen is-one-quarter-desktop is-one-third-tablet is-half-mobile">
+            <div *ngFor="let item of items">
+                <div class="card" *ngIf="item.column==3" [style.background-color]="item.color">
+                    <div *ngIf="item.text !== undefined" class="card-content" [routerLink]="['/edit-note',item.id]">
+                        <b>{{ item.title }}</b> <br>
+                        {{ item.text }}
+                    </div>
+                    <div *ngIf="item.text === undefined" class="card-content" [routerLink]="['/edit-list',item.id]">
+                        <b>{{ item.title }}</b> <br>
+                        <li *ngFor="let task of item.tasks">
+                            {{ task.text }}
+                        </li>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="dropdown is-hoverable is-up is-left">
+                            <div class="dropdown-trigger">
+                                <button class="button color-picker-button" [style.background-color]="item.color"
+                                    aria-haspopup="true">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-paint-brush" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                                <div class="dropdown-content color-picker-container">
+                                    <div class="color-button-group">
+                                        <button #color1 class="button color-button is-rounded"
+                                            style="background-color: #ffffff;"
+                                            (click)="setColorString(item.id, item.item_type, color1.style.backgroundColor)"></button>
+                                        <button #color2 class="button color-button is-rounded"
+                                            style="background-color: #F58A82;"
+                                            (click)="setColorString(item.id, item.item_type, color2.style.backgroundColor)"></button>
+                                        <button #color3 class="button color-button is-rounded"
+                                            style="background-color: #E7BF4C;"
+                                            (click)="setColorString(item.id, item.item_type, color3.style.backgroundColor)"></button>
+                                        <button #color4 class="button color-button is-rounded"
+                                            style="background-color: #FFF475;"
+                                            (click)="setColorString(item.id, item.item_type, color4.style.backgroundColor)"></button>
+                                    </div>
+                                    <div class="color-button-group">
+                                        <button #color5 class="button color-button is-rounded"
+                                            style="background-color: #CEFF8B;"
+                                            (click)="setColorString(item.id, item.item_type, color5.style.backgroundColor)"></button>
+                                        <button #color6 class="button color-button is-rounded"
+                                            style="background-color: #A3FFE9;"
+                                            (click)="setColorString(item.id, item.item_type, color6.style.backgroundColor)"></button>
+                                        <button #color7 class="button color-button is-rounded"
+                                            style="background-color: #C9F2F6;"
+                                            (click)="setColorString(item.id, item.item_type, color7.style.backgroundColor)"></button>
+                                        <button #color8 class="button color-button is-rounded"
+                                            style="background-color: #AFCBFA;"
+                                            (click)="setColorString(item.id, item.item_type, color8.style.backgroundColor)"></button>
+                                    </div>
+                                    <div class="color-button-group">
+                                        <button #color9 class="button color-button is-rounded"
+                                            style="background-color: #D5AFF8;"
+                                            (click)="setColorString(item.id, item.item_type, color9.style.backgroundColor)"></button>
+                                        <button #color10 class="button color-button is-rounded"
+                                            style="background-color: #FFCEE7;"
+                                            (click)="setColorString(item.id, item.item_type, color10.style.backgroundColor)"></button>
+                                        <button #color11 class="button color-button is-rounded"
+                                            style="background-color: #EAC8A5;"
+                                            (click)="setColorString(item.id, item.item_type, color11.style.backgroundColor)"></button>
+                                        <button #color12 class="button color-button is-rounded"
+                                            style="background-color: #EAE9EE;"
+                                            (click)="setColorString(item.id, item.item_type, color12.style.backgroundColor)"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button (click)="deleteItem(item)" class="button delete-item-button" aria-haspopup="true"
+                                [style.background-color]="item.color">
+                                <span class="icon is-small">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-one-quarter-widescreen is-one-quarter-desktop is-one-third-tablet is-half-mobile">
+            <div *ngFor="let item of items">
+                <div class="card" *ngIf="item.column==4" [style.background-color]="item.color">
+                    <div *ngIf="item.text !== undefined" class="card-content" [routerLink]="['/edit-note',item.id]">
+                        <b>{{ item.title }}</b> <br>
+                        {{ item.text }}
+                    </div>
+                    <div *ngIf="item.text === undefined" class="card-content" [routerLink]="['/edit-list',item.id]">
+                        <b>{{ item.title }}</b> <br>
+                        <li *ngFor="let task of item.tasks">
+                            {{ task.text }}
+                        </li>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="dropdown is-hoverable is-up is-left">
+                            <div class="dropdown-trigger">
+                                <button class="button color-picker-button" [style.background-color]="item.color"
+                                    aria-haspopup="true">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-paint-brush" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                                <div class="dropdown-content color-picker-container">
+                                    <div class="color-button-group">
+                                        <button #color1 class="button color-button is-rounded"
+                                            style="background-color: #ffffff;"
+                                            (click)="setColorString(item.id, item.item_type, color1.style.backgroundColor)"></button>
+                                        <button #color2 class="button color-button is-rounded"
+                                            style="background-color: #F58A82;"
+                                            (click)="setColorString(item.id, item.item_type, color2.style.backgroundColor)"></button>
+                                        <button #color3 class="button color-button is-rounded"
+                                            style="background-color: #E7BF4C;"
+                                            (click)="setColorString(item.id, item.item_type, color3.style.backgroundColor)"></button>
+                                        <button #color4 class="button color-button is-rounded"
+                                            style="background-color: #FFF475;"
+                                            (click)="setColorString(item.id, item.item_type, color4.style.backgroundColor)"></button>
+                                    </div>
+                                    <div class="color-button-group">
+                                        <button #color5 class="button color-button is-rounded"
+                                            style="background-color: #CEFF8B;"
+                                            (click)="setColorString(item.id, item.item_type, color5.style.backgroundColor)"></button>
+                                        <button #color6 class="button color-button is-rounded"
+                                            style="background-color: #A3FFE9;"
+                                            (click)="setColorString(item.id, item.item_type, color6.style.backgroundColor)"></button>
+                                        <button #color7 class="button color-button is-rounded"
+                                            style="background-color: #C9F2F6;"
+                                            (click)="setColorString(item.id, item.item_type, color7.style.backgroundColor)"></button>
+                                        <button #color8 class="button color-button is-rounded"
+                                            style="background-color: #AFCBFA;"
+                                            (click)="setColorString(item.id, item.item_type, color8.style.backgroundColor)"></button>
+                                    </div>
+                                    <div class="color-button-group">
+                                        <button #color9 class="button color-button is-rounded"
+                                            style="background-color: #D5AFF8;"
+                                            (click)="setColorString(item.id, item.item_type, color9.style.backgroundColor)"></button>
+                                        <button #color10 class="button color-button is-rounded"
+                                            style="background-color: #FFCEE7;"
+                                            (click)="setColorString(item.id, item.item_type, color10.style.backgroundColor)"></button>
+                                        <button #color11 class="button color-button is-rounded"
+                                            style="background-color: #EAC8A5;"
+                                            (click)="setColorString(item.id, item.item_type, color11.style.backgroundColor)"></button>
+                                        <button #color12 class="button color-button is-rounded"
+                                            style="background-color: #EAE9EE;"
+                                            (click)="setColorString(item.id, item.item_type, color12.style.backgroundColor)"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button (click)="deleteItem(item)" class="button delete-item-button" aria-haspopup="true"
+                                [style.background-color]="item.color">
+                                <span class="icon is-small">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

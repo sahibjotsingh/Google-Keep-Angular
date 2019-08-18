@@ -1,0 +1,76 @@
+<div class="centered-content">
+        <div class="modal-box">
+            <div>
+                <input [(ngModel)]="taskList.title" class="task-list-title input is-large" type="text" placeholder="Title"
+                    [style.background-color]="color">
+            </div>
+    
+            <div cdkDropList class="task-list" (cdkDropListDropped)="drop($event)">
+                <div [style.background-color]="color" class="task-list-item" *ngFor="let task of taskList.tasks" cdkDrag>
+                    <input [style.background-color]="color" [(ngModel)]="task.text" class="input" type="text">
+                    <button [style.background-color]="color" (click)="deleteTask(task)" class="button delete-task-item-button">
+                        <span class="icon is-large">
+                            <i class="fa fa-times"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+    
+            <div class="action-buttons">
+                <div class="dropdown is-hoverable is-up is-left">
+                    <div class="dropdown-trigger">
+                        <button class="button color-picker-button" aria-haspopup="true">
+                            <span class="icon is-small">
+                                <i class="fas fa-paint-brush" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                        <div class="dropdown-content color-picker-container">
+                            <div class="color-button-group">
+                                <button #color1 class="button color-button is-rounded" style="background-color: #ffffff;"
+                                    (click)="setColorString(color1.style.backgroundColor)"></button>
+                                <button #color2 class="button color-button is-rounded" style="background-color: #F58A82;"
+                                    (click)="setColorString(color2.style.backgroundColor)"></button>
+                                <button #color3 class="button color-button is-rounded" style="background-color: #E7BF4C;"
+                                    (click)="setColorString(color3.style.backgroundColor)"></button>
+                                <button #color4 class="button color-button is-rounded" style="background-color: #FFF475;"
+                                    (click)="setColorString(color4.style.backgroundColor)"></button>
+                            </div>
+                            <div class="color-button-group">
+                                <button #color5 class="button color-button is-rounded" style="background-color: #CEFF8B;"
+                                    (click)="setColorString(color5.style.backgroundColor)"></button>
+                                <button #color6 class="button color-button is-rounded" style="background-color: #A3FFE9;"
+                                    (click)="setColorString(color6.style.backgroundColor)"></button>
+                                <button #color7 class="button color-button is-rounded" style="background-color: #C9F2F6;"
+                                    (click)="setColorString(color7.style.backgroundColor)"></button>
+                                <button #color8 class="button color-button is-rounded" style="background-color: #AFCBFA;"
+                                    (click)="setColorString(color8.style.backgroundColor)"></button>
+                            </div>
+                            <div class="color-button-group">
+                                <button #color9 class="button color-button is-rounded" style="background-color: #D5AFF8;"
+                                    (click)="setColorString(color9.style.backgroundColor)"></button>
+                                <button #color10 class="button color-button is-rounded" style="background-color: #FFCEE7;"
+                                    (click)="setColorString(color10.style.backgroundColor)"></button>
+                                <button #color11 class="button color-button is-rounded" style="background-color: #EAC8A5;"
+                                    (click)="setColorString(color11.style.backgroundColor)"></button>
+                                <button #color12 class="button color-button is-rounded" style="background-color: #EAE9EE;"
+                                    (click)="setColorString(color12.style.backgroundColor)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="button new-task-button" aria-haspopup="true">
+                        <span class="icon is-small">
+                            <i class="fas fa-plus" (click)="createTask()"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="buttons is-right">
+                    <button class="button" routerLink="/">Cancel</button>
+                    <button class="button is-primary" (click)="updateTaskList()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
