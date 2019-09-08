@@ -8,27 +8,30 @@ export class NoteService {
 
   constructor(private webReqService: WebRequestService) { }
 
-  getNotes() {
-    return this.webReqService.get('notes');
+  getNotes(searchText: string) {
+    if(searchText == "")
+      return this.webReqService.get('notes/');
+
+    return this.webReqService.get(`notes/?search_text=${searchText}`);
   }
 
   getNote(noteId: string) {
-    return this.webReqService.get(`notes/${noteId}`);
+    return this.webReqService.get(`notes/${noteId}/`);
   }
 
   createNode(title: string, text: string, color: string, column: string) {
-    return this.webReqService.post('notes', { "title": title, "text": text, "color": color , "column": column });
+    return this.webReqService.post('notes/', { "title": title, "text": text, "color": color , "column": column });
   }
 
   updateNote(noteId: string, title: string, text: string, color: string) {
-    return this.webReqService.patch(`notes/${noteId}`, { "title": title, "text": text, "color": color});
+    return this.webReqService.patch(`notes/${noteId}/`, { "title": title, "text": text, "color": color});
   }
 
   deleteNote(noteId: string) {
-    return this.webReqService.delete(`notes/${noteId}`);
+    return this.webReqService.delete(`notes/${noteId}/`);
   }
 
   updateNoteColor(noteId: string, color: string) {
-    return this.webReqService.patch(`notes/${noteId}`, { "color": color});
+    return this.webReqService.patch(`notes/${noteId}/`, { "color": color});
   }
 }

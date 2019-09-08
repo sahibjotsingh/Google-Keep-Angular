@@ -1,7 +1,7 @@
 <div class="centered-content">
     <div class="top-bar">
         <div class="search-bar control">
-            <input class="input is-medium has-background-light" type="text" placeholder="Search">
+            <input #searchBox class="input is-medium has-background-light" type="text" placeholder="Search" (keyup)="search(searchBox.value)">
         </div>
         <div class="new-note-button">
             <button routerLink="../new-note" class="button">

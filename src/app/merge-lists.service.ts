@@ -10,21 +10,21 @@ export class MergeListsService {
 
   constructor() { }
 
-  merge(combined: Combined): Promise<any> {
+  merge(combined: any): Promise<any> {
 
-    let notes: Note[];
+    let notes: any[];
     let i: number = 0;
     let j: number = 0;
     let N: number = 0;
     let M: number = 0;
     let items: any[] = [];
-    let task_lists: TaskList[];
+    let task_lists: any[];
     let iterator: number = 1;
     let noc: number = 5;
 
     return new Promise(resolve => {
-      notes = combined.notes;
-      task_lists = combined.task_groups;
+      notes = combined[0];
+      task_lists = combined[1];
       N = notes.length;
       M = task_lists.length;
 
@@ -57,7 +57,6 @@ export class MergeListsService {
         iterator = iterator + 1;
       }
 
-      console.log(items);
       resolve(items);
     });
 

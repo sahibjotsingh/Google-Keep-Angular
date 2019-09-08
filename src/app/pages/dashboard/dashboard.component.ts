@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { CombinedService } from 'src/app/combined.service';
 import { TaskListService } from 'src/app/task-list.service';
 import { NoteService } from 'src/app/note.service';
 import { MergeListsService } from 'src/app/merge-lists.service';
@@ -9,6 +8,7 @@ import { TaskList } from 'src/app/models/task-list.model';
 import { Task } from 'src/app/models/task.model';
 import { Combined } from 'src/app/models/combined.model';
 import { empty } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'dashboard-view',
@@ -21,21 +21,27 @@ export class DashboardComponent implements OnInit {
   selectedId: string;
   combined: Combined;
   notes: any;
-  items: any;
+  items: any = [];
 
-  constructor(private combinedService: CombinedService, private noteService: NoteService, private taskListService: TaskListService, private mergeLists: MergeListsService, private route: ActivatedRoute) { }
+  constructor(private noteService: NoteService, private taskListService: TaskListService, private mergeLists: MergeListsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadDashboard();
+    this.loadDashboard("");
   }
 
-  loadDashboard() {
-    this.combinedService.getCombined().subscribe((combined: Combined) => {
-      this.combined = combined;
-      this.mergeLists.merge(this.combined).then(items => {
-        this.items = items;
-      })
-    });
+  loadDashboard(searchText: string) {
+    let observables: Observable<any>[] = [];
+
+    observables.push(this.noteService.getNotes(searchText));
+    observables.push(this.taskListService.getTaskListsWithTasks(searchText));
+
+    forkJoin(observables)
+      .subscribe(dataArray => {
+        // All observables in `observables` array have resolved and `dataArray` is an array of result of each observable
+       this.mergeLists.merge(dataArray).then(items => {
+         this.items = items;
+       })
+      });
   }
 
   setColorString(itemId: string, itemType: string, color: string): void {
@@ -63,16 +69,20 @@ export class DashboardComponent implements OnInit {
     switch (item.item_type) {
       case 'note':
         this.noteService.deleteNote(item.id).subscribe(() => {
-          this.loadDashboard();
+          this.loadDashboard("");
         });
         break;
 
       case 'task_list':
         this.taskListService.deleteTaskList(item.id).subscribe(() => {
-          this.loadDashboard();
+          this.loadDashboard("");
         });
         break;
     }
+  }
+
+  search(searchText: string): void {
+    this.loadDashboard(searchText);
   }
 
 }
