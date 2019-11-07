@@ -13,4 +13,6 @@ Frontend for an application like Google Keep. Built using Angular and Bulma. Use
 * URLs
 * Archieve
 
+## Demo
+![gk](https://user-images.githubusercontent.com/22634590/68417197-f76f4c80-01bb-11ea-8a04-2890218d2949.PNG)
 
